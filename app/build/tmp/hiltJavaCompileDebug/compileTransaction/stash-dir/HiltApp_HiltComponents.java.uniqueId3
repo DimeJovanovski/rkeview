@@ -46,8 +46,8 @@ import dagger.hilt.components.SingletonComponent;
 import dagger.hilt.internal.GeneratedComponent;
 import dagger.hilt.migration.DisableInstallInCheck;
 import javax.inject.Singleton;
-import mk.rkeview.model.module.FirebaseModule;
-import mk.rkeview.model.module.ServiceModule;
+import mk.rkeview.model.service.module.FirebaseModule;
+import mk.rkeview.model.service.module.ServiceModule;
 import mk.rkeview.ui.screens.EnergyResourceViewModel_HiltModules;
 
 public final class HiltApp_HiltComponents {

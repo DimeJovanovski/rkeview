@@ -6,7 +6,7 @@ import dagger.internal.QualifierMetadata;
 import dagger.internal.ScopeMetadata;
 import javax.annotation.processing.Generated;
 import javax.inject.Provider;
-import mk.rkeview.model.EnergyResourceService;
+import mk.rkeview.model.service.EnergyResourceService;
 
 @ScopeMetadata
 @QualifierMetadata

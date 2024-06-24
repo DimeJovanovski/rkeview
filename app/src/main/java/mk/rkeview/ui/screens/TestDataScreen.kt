@@ -2,11 +2,11 @@ package mk.rkeview.ui.screens
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -28,16 +28,17 @@ fun TestDataScreen(
 
     LazyColumn(modifier = modifier) {
         items(resources.value) { resource ->
-            EnergyResourceItem(resource)
+            EnergyResourceItem(
+                resource = resource
+            )
         }
     }
 }
 
 @Composable
 fun EnergyResourceItem(
-    resource: EnergyResource
+    resource: EnergyResource,
 ) {
-
     Column(
         modifier = Modifier
             .padding(16.dp)

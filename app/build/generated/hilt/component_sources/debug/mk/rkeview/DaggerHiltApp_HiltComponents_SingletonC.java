@@ -31,9 +31,9 @@ import dagger.internal.Preconditions;
 import java.util.Map;
 import java.util.Set;
 import javax.inject.Provider;
-import mk.rkeview.model.module.FirebaseModule;
-import mk.rkeview.model.module.FirebaseModule_FirestoreFactory;
-import mk.rkeview.model.service.EnergyResourceServiceImpl;
+import mk.rkeview.model.service.impl.EnergyResourceServiceImpl;
+import mk.rkeview.model.service.module.FirebaseModule;
+import mk.rkeview.model.service.module.FirebaseModule_FirestoreFactory;
 import mk.rkeview.ui.screens.EnergyResourceViewModel;
 import mk.rkeview.ui.screens.EnergyResourceViewModel_HiltModules_KeyModule_ProvideFactory;
 

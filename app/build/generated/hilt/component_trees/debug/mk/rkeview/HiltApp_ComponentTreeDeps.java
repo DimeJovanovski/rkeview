@@ -39,8 +39,8 @@ import hilt_aggregated_deps._dagger_hilt_android_internal_modules_ApplicationCon
 import hilt_aggregated_deps._dagger_hilt_android_internal_modules_HiltWrapper_ActivityModule;
 import hilt_aggregated_deps._mk_rkeview_HiltApp_GeneratedInjector;
 import hilt_aggregated_deps._mk_rkeview_MainActivity_GeneratedInjector;
-import hilt_aggregated_deps._mk_rkeview_model_module_FirebaseModule;
-import hilt_aggregated_deps._mk_rkeview_model_module_ServiceModule;
+import hilt_aggregated_deps._mk_rkeview_model_service_module_FirebaseModule;
+import hilt_aggregated_deps._mk_rkeview_model_service_module_ServiceModule;
 import hilt_aggregated_deps._mk_rkeview_ui_screens_EnergyResourceViewModel_HiltModules_BindsModule;
 import hilt_aggregated_deps._mk_rkeview_ui_screens_EnergyResourceViewModel_HiltModules_KeyModule;
 
@@ -86,8 +86,8 @@ import hilt_aggregated_deps._mk_rkeview_ui_screens_EnergyResourceViewModel_HiltM
         _dagger_hilt_android_internal_modules_HiltWrapper_ActivityModule.class,
         _mk_rkeview_HiltApp_GeneratedInjector.class,
         _mk_rkeview_MainActivity_GeneratedInjector.class,
-        _mk_rkeview_model_module_FirebaseModule.class,
-        _mk_rkeview_model_module_ServiceModule.class,
+        _mk_rkeview_model_service_module_FirebaseModule.class,
+        _mk_rkeview_model_service_module_ServiceModule.class,
         _mk_rkeview_ui_screens_EnergyResourceViewModel_HiltModules_BindsModule.class,
         _mk_rkeview_ui_screens_EnergyResourceViewModel_HiltModules_KeyModule.class
     }

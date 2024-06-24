@@ -1,7 +1,7 @@
 package mk.rkeview.ui.screens
 
 import dagger.hilt.android.lifecycle.HiltViewModel
-import mk.rkeview.model.EnergyResourceService
+import mk.rkeview.model.service.EnergyResourceService
 import javax.inject.Inject
 
 
@@ -14,7 +14,13 @@ class EnergyResourceViewModel @Inject constructor(
 
     fun loadResources() {
         launchCatching {
-            resourceService.resources
+            resourceService.getWarehouseResources()
+        }
+    }
+
+    fun getResource(id: String) {
+        launchCatching {
+            resourceService.getResource(id)
         }
     }
 }
