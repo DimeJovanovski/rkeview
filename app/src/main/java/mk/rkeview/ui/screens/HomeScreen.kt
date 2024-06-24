@@ -48,7 +48,7 @@ fun HomeScreenContent(navController: NavController) {
         horizontalArrangement = Arrangement.spacedBy(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
       ) {
-        items(ResourceType.values().toList()) { resourceType ->
+        items(ResourceType.entries) { resourceType ->
           ResourceTypeButton(
             resourceType = resourceType,
             navController = navController,
