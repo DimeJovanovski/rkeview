@@ -9,6 +9,9 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 
 
+// DON'T TOUCH THIS
+// it creates a firestore singleton
+
 @InstallIn(SingletonComponent::class)
 @Module
 object FirebaseModule {

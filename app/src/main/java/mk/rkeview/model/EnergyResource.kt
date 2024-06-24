@@ -6,7 +6,7 @@ import com.google.firebase.firestore.PropertyName
 
 data class EnergyResource(
     @DocumentId val id: String = "",
-    val data: Any = "",
+    val data: EnergyResourceData = EnergyResourceData(),
 )
 
 data class EnergyResourceData(

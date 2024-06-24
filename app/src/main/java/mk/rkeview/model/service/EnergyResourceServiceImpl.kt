@@ -21,16 +21,9 @@ class EnergyResourceServiceImpl @Inject constructor(
 
     private val collection get() = firestore.collection(DISTRICT_HEATING)
 
-    @OptIn(ExperimentalCoroutinesApi::class)
+    // Currently only using DISTRICT_HEATING, but will need to use the other categories
     override val resources: Flow<List<EnergyResource>>
-        get() {
-            val x = firestore.collection(DISTRICT_HEATING).dataObjects<EnergyResource>()
-            Log.d("EnergyResourceServiceImpl", "resources: $x")
-
-
-
-            return x
-        }
+        get() = firestore.collection(DISTRICT_HEATING).dataObjects<EnergyResource>()
 
     override suspend fun getResource(energyResourceId: String): EnergyResource? {
         return collection.document(energyResourceId).get().await()
@@ -47,11 +40,6 @@ class EnergyResourceServiceImpl @Inject constructor(
 
     override suspend fun delete(energyResourceId: String) {
         TODO("Not yet implemented")
-    }
-
-    override suspend fun loadResources(): List<EnergyResource> {
-        return firestore.collection(DISTRICT_HEATING).get().await()
-            .toObjects(EnergyResource::class.java)
     }
 
 

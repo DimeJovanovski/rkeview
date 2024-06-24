@@ -14,7 +14,7 @@ class EnergyResourceViewModel @Inject constructor(
 
     fun loadResources() {
         launchCatching {
-            resourceService.loadResources()
+            resourceService.resources
         }
     }
 }
