@@ -39,16 +39,16 @@ fun ResourceTypeButton(
 ) {
     Button(
         onClick = {
-            navController.navigate("resourcePricesScreen/" + resourceType.firebaseName)
+            navController.navigate("resourcePricesScreen/${resourceType.firebaseName}/${resourceType.displayName}")
         },
         modifier = Modifier
-          .height(140.dp)
-          .clip(shape = RoundedCornerShape(8.dp))
-          .border(
-            width = 1.dp,
-            color = MaterialTheme.colors.secondary,
-            shape = RoundedCornerShape(8.dp)
-          ),
+            .height(140.dp)
+            .clip(shape = RoundedCornerShape(8.dp))
+            .border(
+                width = 1.dp,
+                color = MaterialTheme.colors.secondary,
+                shape = RoundedCornerShape(8.dp)
+            ),
         colors = ButtonDefaults.buttonColors(
             backgroundColor = MaterialTheme.colors.primary, contentColor = Color.Black
         ),

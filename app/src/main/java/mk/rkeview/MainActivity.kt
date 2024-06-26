@@ -30,16 +30,21 @@ class MainActivity : ComponentActivity() {
 
                     // for the Resource Prices Screen
                     composable(
-                        "resourcePricesScreen/{resourceTypeFirebaseName}",
+                        "resourcePricesScreen/{resourceTypeFirebaseName}/{resourceTypeDisplayName}",
                         arguments = listOf(navArgument("resourceTypeFirebaseName") {
+                            type = NavType.StringType
+                        }, navArgument("resourceTypeDisplayName") {
                             type = NavType.StringType
                         })
                     ) { backStackEntry ->
                         val resourceTypeFirebaseName =
                             backStackEntry.arguments?.getString("resourceTypeFirebaseName")
+                        val resourceTypeDisplayName =
+                            backStackEntry.arguments?.getString("resourceTypeDisplayName")
                         ResourcePricesScreen(
                             navController = navController,
-                            resourceTypeFirebaseName = resourceTypeFirebaseName.orEmpty()
+                            resourceTypeFirebaseName = resourceTypeFirebaseName.orEmpty(),
+                            resourceTypeDisplayName = resourceTypeDisplayName.orEmpty()
                         )
                     }
 

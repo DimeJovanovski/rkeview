@@ -11,15 +11,12 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import mk.rkeview.model.EnergyResource
-import mk.rkeview.theme.RKEviewTheme
 import mk.rkeview.ui.components.ResourcePriceField
 import mk.rkeview.ui.components.ScreenTemplate
 
@@ -30,25 +27,27 @@ import mk.rkeview.ui.components.ScreenTemplate
  * @param navController - for app navigation
  * @param viewModel - viewModel from where to read the data
  * @param resourceTypeFirebaseName - name of the document in Firebase of the general resource
+ * @param resourceTypeDisplayName - name of the document in Firebase of the general resource
  */
 @Composable
 fun ResourcePricesScreen(
     navController: NavController,
     viewModel: EnergyResourceViewModel = hiltViewModel(),
-    resourceTypeFirebaseName: String
+    resourceTypeFirebaseName: String,
+    resourceTypeDisplayName: String
 ) {
     val resources = viewModel.getCategoryResource(resourceTypeFirebaseName)
         .collectAsStateWithLifecycle(emptyList())
 
     ScreenTemplate(navController = navController, content = {
         ResourcePricesScreenContent(
-            subTypes = resources.value, resourceTypeName = resourceTypeFirebaseName
+            subTypes = resources.value, resourceTypeDisplayName = resourceTypeDisplayName
         )
     })
 }
 
 @Composable
-fun ResourcePricesScreenContent(subTypes: List<EnergyResource>, resourceTypeName: String) {
+fun ResourcePricesScreenContent(subTypes: List<EnergyResource>, resourceTypeDisplayName: String) {
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
@@ -57,7 +56,7 @@ fun ResourcePricesScreenContent(subTypes: List<EnergyResource>, resourceTypeName
     ) {
         item {
             Text(
-                text = resourceTypeName,
+                text = resourceTypeDisplayName,
                 fontSize = 32.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(vertical = 16.dp)
