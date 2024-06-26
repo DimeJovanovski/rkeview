@@ -25,7 +25,7 @@ import mk.rkeview.model.EnergyResourceData
 import mk.rkeview.resourceComponents.ResourceType
 import mk.rkeview.ui.components.ResourcePriceField
 
-
+// This is a screen for manual testing features during development process
 @Composable
 @ExperimentalMaterialApi
 fun TestDataScreen(
@@ -34,13 +34,6 @@ fun TestDataScreen(
 ) {
     val resources = viewModel.getCategoryResource("electricity").collectAsStateWithLifecycle(emptyList())
     val resources2 = viewModel.resourcesOil.collectAsStateWithLifecycle(emptyList())
-//    LazyColumn(modifier = modifier) {
-//        items(resources.value) { resource ->
-//            EnergyResourceItem(
-//                resource = resource
-//            )
-//        }
-//    }
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
@@ -70,20 +63,3 @@ fun TestDataScreen(
         }
     }
 }
-
-@Composable
-fun EnergyResourceItem(
-    resource: EnergyResource,
-) {
-    Column(
-        modifier = Modifier
-            .padding(16.dp)
-            .border(1.dp, color = Color.Black)
-    ) {
-        Text(text = resource.data.name)
-        Text(text = resource.data.price.toString())
-        Text(text = resource.data.unit)
-        Text(text = resource.data.validFrom)
-    }
-}
-

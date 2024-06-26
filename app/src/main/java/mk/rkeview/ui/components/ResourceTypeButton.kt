@@ -34,59 +34,56 @@ import mk.rkeview.theme.RKEviewTheme
  */
 @Composable
 fun ResourceTypeButton(
-  resourceType: ResourceType,
-  navController: NavController
+    resourceType: ResourceType,
+    navController: NavController
 ) {
-  Button(
-    onClick = {
-//      val subTypesJson = Gson().toJson(resourceType.subTypes)
-//      navController.navigate("resourcePricesScreen/$subTypesJson")
-      navController.navigate("resourcePricesScreen/"+resourceType.firebaseName)
-    },
-    modifier = Modifier
-      .height(140.dp)
-      .clip(shape = RoundedCornerShape(8.dp))
-      .border(
-        width = 1.dp,
-        color = MaterialTheme.colors.secondary,
-        shape = RoundedCornerShape(8.dp)
-      ),
-    colors = ButtonDefaults.buttonColors(
-      backgroundColor = MaterialTheme.colors.primary, contentColor = Color.Black
-    ),
-    elevation = ButtonDefaults.elevation(
-      defaultElevation = 0.dp, pressedElevation = 0.dp, disabledElevation = 0.dp
-    )
-  ) {
-    Column(
-      verticalArrangement = Arrangement.Center,
-      horizontalAlignment = Alignment.CenterHorizontally
+    Button(
+        onClick = {
+            navController.navigate("resourcePricesScreen/" + resourceType.firebaseName)
+        },
+        modifier = Modifier
+          .height(140.dp)
+          .clip(shape = RoundedCornerShape(8.dp))
+          .border(
+            width = 1.dp,
+            color = MaterialTheme.colors.secondary,
+            shape = RoundedCornerShape(8.dp)
+          ),
+        colors = ButtonDefaults.buttonColors(
+            backgroundColor = MaterialTheme.colors.primary, contentColor = Color.Black
+        ),
+        elevation = ButtonDefaults.elevation(
+            defaultElevation = 0.dp, pressedElevation = 0.dp, disabledElevation = 0.dp
+        )
     ) {
-      Text(
-        text = resourceType.shortName,
-        fontSize = 64.sp,
-        fontWeight = FontWeight.Bold
-      )
-      Text(
-        text = resourceType.displayName,
-        fontSize = 16.sp,
-        fontWeight = FontWeight.Normal,
-        textAlign = TextAlign.Center
-      )
+        Column(
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                text = resourceType.shortName,
+                fontSize = 64.sp,
+                fontWeight = FontWeight.Bold
+            )
+            Text(
+                text = resourceType.displayName,
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Normal,
+                textAlign = TextAlign.Center
+            )
+        }
     }
-  }
 }
-
 
 
 @Preview
 @Composable
 fun ResourceTypeButtonPreview() {
-  val navController = rememberNavController()
-  RKEviewTheme {
-    ResourceTypeButton(
-      resourceType = ResourceType.ELECTRIC_ENERGY,
-      navController = navController,
-    )
-  }
+    val navController = rememberNavController()
+    RKEviewTheme {
+        ResourceTypeButton(
+            resourceType = ResourceType.ELECTRIC_ENERGY,
+            navController = navController,
+        )
+    }
 }

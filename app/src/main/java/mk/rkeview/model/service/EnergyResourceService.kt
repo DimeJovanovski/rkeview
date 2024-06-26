@@ -6,13 +6,11 @@ import mk.rkeview.model.EnergyResourceData
 
 interface EnergyResourceService {
 
-    // Better way to grab the resources:
+    // Better way to grab the resources: // Andrej: I Hope you are right
     val resourcesHeating: Flow<List<EnergyResource>>
     val resourcesOil: Flow<List<EnergyResource>>
     val resourcesElectricity: Flow<List<EnergyResource>>
     val resourcesRenewableSources: Flow<List<EnergyResource>>
-
-    // ToDo: Grab Resources based on category, and implement all these!
 
     suspend fun getWarehouseResources(): List<Pair<String, EnergyResourceData>>
     suspend fun getResource(energyResourceId: String): EnergyResource?

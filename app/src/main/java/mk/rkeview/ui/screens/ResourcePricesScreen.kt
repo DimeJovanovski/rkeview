@@ -19,7 +19,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import mk.rkeview.model.EnergyResource
-import mk.rkeview.resourceComponents.ResourceType
 import mk.rkeview.theme.RKEviewTheme
 import mk.rkeview.ui.components.ResourcePriceField
 import mk.rkeview.ui.components.ScreenTemplate
@@ -29,34 +28,31 @@ import mk.rkeview.ui.components.ScreenTemplate
  * Displays the prices for the sub-resources of a general resource.
  *
  * @param navController - for app navigation
- * @param subTypes - list of Resource's sub-resources(enums)
+ * @param viewModel - viewModel from where to read the data
+ * @param resourceTypeFirebaseName - name of the document in Firebase of the general resource
  */
 @Composable
 fun ResourcePricesScreen(
     navController: NavController,
     viewModel: EnergyResourceViewModel = hiltViewModel(),
-    resourceTypeName: String
+    resourceTypeFirebaseName: String
 ) {
-    val resources =
-        viewModel.getCategoryResource(resourceTypeName).collectAsStateWithLifecycle(emptyList())
+    val resources = viewModel.getCategoryResource(resourceTypeFirebaseName)
+        .collectAsStateWithLifecycle(emptyList())
 
-    ScreenTemplate(
-        navController = navController,
-        content = {
-            ResourcePricesScreenContent(
-                subTypes = resources.value,
-                resourceTypeName = resourceTypeName
-            )
-        }
-    )
+    ScreenTemplate(navController = navController, content = {
+        ResourcePricesScreenContent(
+            subTypes = resources.value, resourceTypeName = resourceTypeFirebaseName
+        )
+    })
 }
 
 @Composable
 fun ResourcePricesScreenContent(subTypes: List<EnergyResource>, resourceTypeName: String) {
     LazyColumn(
         modifier = Modifier
-          .fillMaxSize()
-          .padding(horizontal = 16.dp),
+            .fillMaxSize()
+            .padding(horizontal = 16.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         item {
@@ -69,8 +65,7 @@ fun ResourcePricesScreenContent(subTypes: List<EnergyResource>, resourceTypeName
         }
         items(subTypes) { subType ->
             Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
+                modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 ResourcePriceField(
                     displayName = subType.data.name,
@@ -84,6 +79,7 @@ fun ResourcePricesScreenContent(subTypes: List<EnergyResource>, resourceTypeName
 }
 
 
+// Preview won't work because it can't initialize viewModel
 //@Preview
 //@Composable
 //fun ResourcePricesScreenContentPreview() {

@@ -2,11 +2,8 @@ package mk.rkeview.model.service.impl
 
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.dataObjects
-import com.google.firebase.firestore.toObjects
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.emptyFlow
-import kotlinx.coroutines.tasks.await
 import mk.rkeview.model.EnergyResource
 import mk.rkeview.model.EnergyResourceData
 import mk.rkeview.model.service.EnergyResourceService
@@ -16,8 +13,6 @@ class EnergyResourceServiceImpl @Inject constructor(
     private val firestore: FirebaseFirestore
 
 ) : EnergyResourceService {
-
-    private val collection get() = firestore.collection(WAREHOUSE)
 
     override val resourcesHeating: Flow<List<EnergyResource>>
         get() = firestore.collection(DISTRICT_HEATING).dataObjects<EnergyResource>()
@@ -29,11 +24,12 @@ class EnergyResourceServiceImpl @Inject constructor(
         get() = firestore.collection(RENEWABLE_SOURCES).dataObjects<EnergyResource>()
 
     override suspend fun getWarehouseResources(): List<Pair<String, EnergyResourceData>> {
+        TODO("Not yet implemented")
         // we want to read all the documents, they have variable amount of fields
         // so we can't use toObjects
-        return collection.get().await().documents.map { doc ->
-            doc.id to doc.toObject(EnergyResourceData::class.java)!!
-        }
+//        return collection.get().await().documents.map { doc ->
+//            doc.id to doc.toObject(EnergyResourceData::class.java)!!
+//        }
     }
 
 //it works but it is sync function that reads data from DB (not good practice)
@@ -56,8 +52,7 @@ class EnergyResourceServiceImpl @Inject constructor(
     }
 
     override suspend fun getResource(energyResourceId: String): EnergyResource? {
-        return collection.document(energyResourceId).get().await()
-            .toObject(EnergyResource::class.java)
+        TODO("Not yet implemented")
     }
 
     override suspend fun save(energyResource: EnergyResource): String {
@@ -74,7 +69,6 @@ class EnergyResourceServiceImpl @Inject constructor(
 
 
     companion object {
-
         private const val DISTRICT_HEATING = "district_heating"
         private const val ELECTRICITY = "electricity"
         private const val OIL_AND_OIL_DERIVATIVES = "oil_and_oil_derivatives"

@@ -13,11 +13,7 @@ import mk.rkeview.ui.screens.HomeScreen
 import mk.rkeview.ui.screens.ResourcePricesScreen
 import mk.rkeview.ui.screens.SettingsScreen
 import androidx.navigation.navArgument
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.AndroidEntryPoint
-import mk.rkeview.resourceComponents.ResourceType
-import mk.rkeview.ui.screens.TestDataScreen
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -43,7 +39,7 @@ class MainActivity : ComponentActivity() {
                             backStackEntry.arguments?.getString("resourceTypeFirebaseName")
                         ResourcePricesScreen(
                             navController = navController,
-                            resourceTypeName = resourceTypeFirebaseName.orEmpty()
+                            resourceTypeFirebaseName = resourceTypeFirebaseName.orEmpty()
                         )
                     }
 
@@ -54,7 +50,6 @@ class MainActivity : ComponentActivity() {
 //            RKEviewTheme {
 //                TestDataScreen()
 //            }
-
         }
     }
 }
