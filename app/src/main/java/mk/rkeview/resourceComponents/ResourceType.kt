@@ -16,31 +16,37 @@ private val measureUnitRE: String = "€центи/kWh"
 enum class ResourceType(
   val displayName: String,
   val shortName: String,
+  val firebaseName: String,
   val subTypes: List<SubType>
 ) {
   ELECTRIC_ENERGY(
     "Електрична енергија",
     "EE",
+    "electricity",
     listOf(SubType.H_HT_VT1, SubType.H_HT_VT2, SubType.H_HT_VT3, SubType.H_HT_VT4, SubType.H_LT_NT, SubType.S_HT_VT, SubType.S_LT_NT, SubType.P_D)
   ),
   NATURAL_GAS(
     "Природен гас",
+    "NG",
     "NG",
     listOf()
   ),
   HEATING_ENERGY(
     "Топлинска енергија",
     "Q",
+    "district_heating",
     listOf(SubType.HS_ESM_LLC_H_CHP, SubType.HS_ESM_DOOEL_H_TE, SubType.HS_ESM_LLC_O_ETP, SubType.HS_ESM_LLC_O_TE, SubType.S_SN_H_ETP, SubType.S_SN_H_TE, SubType.S_SN_O_CTP, SubType.SN_O_TE)
   ),
   OIL(
     "Нафта и нафтени деривати",
     "OIL",
+    "oil_and_oil_derivatives",
     listOf(SubType.ES_95, SubType.ES_98, SubType.ED_BS, SubType.ELFO_1, SubType.M_1HC)
   ),
   RENEWABLE_ENERGY(
     "Обновливи извори",
     "RE",
+    "renewable_sources",
     listOf(SubType.WPP_50MW, SubType.HPP_85kWh, SubType.HEP_85_170kWh, SubType.HEP_170_350kWh, SubType.HPP_350_700kWh, SubType.HPP_700kWh, SubType.BTPP, SubType.BGTPP)
   );
 

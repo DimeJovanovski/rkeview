@@ -4,6 +4,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.dataObjects
 import com.google.firebase.firestore.toObjects
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.tasks.await
 import mk.rkeview.model.EnergyResource
 import mk.rkeview.model.EnergyResourceData
@@ -17,9 +19,14 @@ class EnergyResourceServiceImpl @Inject constructor(
 
     private val collection get() = firestore.collection(WAREHOUSE)
 
-    // Currently only using DISTRICT_HEATING, but will need to use the other categories
-    override val resources: Flow<List<EnergyResource>>
+    override val resourcesHeating: Flow<List<EnergyResource>>
         get() = firestore.collection(DISTRICT_HEATING).dataObjects<EnergyResource>()
+    override val resourcesOil: Flow<List<EnergyResource>>
+        get() = firestore.collection(OIL_AND_OIL_DERIVATIVES).dataObjects<EnergyResource>()
+    override val resourcesElectricity: Flow<List<EnergyResource>>
+        get() = firestore.collection(ELECTRICITY).dataObjects<EnergyResource>()
+    override val resourcesRenewableSources: Flow<List<EnergyResource>>
+        get() = firestore.collection(RENEWABLE_SOURCES).dataObjects<EnergyResource>()
 
     override suspend fun getWarehouseResources(): List<Pair<String, EnergyResourceData>> {
         // we want to read all the documents, they have variable amount of fields
@@ -29,8 +36,23 @@ class EnergyResourceServiceImpl @Inject constructor(
         }
     }
 
-    override suspend fun getCategoryResources(category: String): List<EnergyResource> {
-        return firestore.collection(category).get().await().toObjects(EnergyResource::class.java)
+//it works but it is sync function that reads data from DB (not good practice)
+//    override fun getCategoryResources(category: String): Flow<List<EnergyResource>> {
+//        return firestore.collection(category).dataObjects<EnergyResource>()
+//    }
+
+    override fun getCategoryResources(category: String): Flow<List<EnergyResource>> {
+        if (category == DISTRICT_HEATING) {
+            return resourcesHeating
+        } else if (category == ELECTRICITY) {
+            return resourcesElectricity
+        } else if (category == OIL_AND_OIL_DERIVATIVES) {
+            return resourcesOil
+        } else if (category == RENEWABLE_SOURCES) {
+            return resourcesRenewableSources
+        } else {
+            return emptyFlow()
+        }
     }
 
     override suspend fun getResource(energyResourceId: String): EnergyResource? {
@@ -52,6 +74,7 @@ class EnergyResourceServiceImpl @Inject constructor(
 
 
     companion object {
+
         private const val DISTRICT_HEATING = "district_heating"
         private const val ELECTRICITY = "electricity"
         private const val OIL_AND_OIL_DERIVATIVES = "oil_and_oil_derivatives"

@@ -39,8 +39,9 @@ fun ResourceTypeButton(
 ) {
   Button(
     onClick = {
-      val subTypesJson = Gson().toJson(resourceType.subTypes)
-      navController.navigate("resourcePricesScreen/$subTypesJson")
+//      val subTypesJson = Gson().toJson(resourceType.subTypes)
+//      navController.navigate("resourcePricesScreen/$subTypesJson")
+      navController.navigate("resourcePricesScreen/"+resourceType.firebaseName)
     },
     modifier = Modifier
       .height(140.dp)

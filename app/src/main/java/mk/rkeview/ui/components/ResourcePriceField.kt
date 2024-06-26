@@ -44,7 +44,7 @@ fun ResourcePriceField(
   displayName: String,
   measureUnit: String,
   price: Double,
-  validFrom: Date
+  validFrom: String
 ) {
   Row(
     modifier = Modifier
@@ -112,7 +112,7 @@ fun ResourcePriceFieldPreview() {
       displayName = "Benzin-95",
       measureUnit = "den./l",
       price = 100.0,
-      validFrom = Date(2022-1900, 0, 1)
+      validFrom = "20.01.2022"
     )
   }
 }
