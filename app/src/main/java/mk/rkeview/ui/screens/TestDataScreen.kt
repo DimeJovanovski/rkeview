@@ -33,7 +33,7 @@ fun TestDataScreen(
     viewModel: EnergyResourceViewModel = hiltViewModel()
 ) {
     val resources = viewModel.getCategoryResource("electricity").collectAsStateWithLifecycle(emptyList())
-    val resources2 = viewModel.resourcesOil.collectAsStateWithLifecycle(emptyList())
+//    val resources2 = viewModel.resourcesOil.collectAsStateWithLifecycle(emptyList())
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()

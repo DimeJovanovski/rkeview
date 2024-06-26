@@ -12,11 +12,9 @@ interface EnergyResourceService {
     val resourcesElectricity: Flow<List<EnergyResource>>
     val resourcesRenewableSources: Flow<List<EnergyResource>>
 
-    suspend fun getWarehouseResources(): List<Pair<String, EnergyResourceData>>
     suspend fun getResource(energyResourceId: String): EnergyResource?
     suspend fun save(energyResource: EnergyResource): String
     suspend fun update(energyResource: EnergyResource)
     suspend fun delete(energyResourceId: String)
 
-    fun getCategoryResources(category: String): Flow<List<EnergyResource>>
 }

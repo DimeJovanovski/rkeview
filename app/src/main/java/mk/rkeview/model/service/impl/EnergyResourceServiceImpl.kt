@@ -14,6 +14,7 @@ class EnergyResourceServiceImpl @Inject constructor(
 
 ) : EnergyResourceService {
 
+//    listeners
     override val resourcesHeating: Flow<List<EnergyResource>>
         get() = firestore.collection(DISTRICT_HEATING).dataObjects<EnergyResource>()
     override val resourcesOil: Flow<List<EnergyResource>>
@@ -22,34 +23,6 @@ class EnergyResourceServiceImpl @Inject constructor(
         get() = firestore.collection(ELECTRICITY).dataObjects<EnergyResource>()
     override val resourcesRenewableSources: Flow<List<EnergyResource>>
         get() = firestore.collection(RENEWABLE_SOURCES).dataObjects<EnergyResource>()
-
-    override suspend fun getWarehouseResources(): List<Pair<String, EnergyResourceData>> {
-        TODO("Not yet implemented")
-        // we want to read all the documents, they have variable amount of fields
-        // so we can't use toObjects
-//        return collection.get().await().documents.map { doc ->
-//            doc.id to doc.toObject(EnergyResourceData::class.java)!!
-//        }
-    }
-
-//it works but it is sync function that reads data from DB (not good practice)
-//    override fun getCategoryResources(category: String): Flow<List<EnergyResource>> {
-//        return firestore.collection(category).dataObjects<EnergyResource>()
-//    }
-
-    override fun getCategoryResources(category: String): Flow<List<EnergyResource>> {
-        if (category == DISTRICT_HEATING) {
-            return resourcesHeating
-        } else if (category == ELECTRICITY) {
-            return resourcesElectricity
-        } else if (category == OIL_AND_OIL_DERIVATIVES) {
-            return resourcesOil
-        } else if (category == RENEWABLE_SOURCES) {
-            return resourcesRenewableSources
-        } else {
-            return emptyFlow()
-        }
-    }
 
     override suspend fun getResource(energyResourceId: String): EnergyResource? {
         TODO("Not yet implemented")
