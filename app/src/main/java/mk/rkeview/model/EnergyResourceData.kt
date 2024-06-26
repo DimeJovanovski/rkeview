@@ -7,5 +7,5 @@ data class EnergyResourceData(
     val name: String = "",
     val price: Double = 0.0,
     val unit: String = "",
-    @PropertyName(value = "valid_from") val validFrom: String = "",
+    val valid_from: String = "",
 )

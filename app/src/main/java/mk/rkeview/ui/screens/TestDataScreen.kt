@@ -57,7 +57,7 @@ fun TestDataScreen(
                     displayName = resource.data.name,
                     measureUnit = resource.data.unit,
                     price = resource.data.price,
-                    validFrom = resource.data.validFrom
+                    validFrom = resource.data.valid_from
                 )
             }
         }

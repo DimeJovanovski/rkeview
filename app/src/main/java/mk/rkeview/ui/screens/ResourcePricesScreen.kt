@@ -70,7 +70,7 @@ fun ResourcePricesScreenContent(subTypes: List<EnergyResource>, resourceTypeDisp
                     displayName = subType.data.name,
                     measureUnit = subType.data.unit,
                     price = subType.data.price,
-                    validFrom = subType.data.validFrom
+                    validFrom = subType.data.valid_from
                 )
             }
         }
