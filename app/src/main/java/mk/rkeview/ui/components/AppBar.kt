@@ -1,8 +1,10 @@
 package mk.rkeview.ui.components
 
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -22,16 +24,33 @@ fun AppBar(navController: NavController, disableBackButton: Boolean = false) {
     navigationIcon = if (!disableBackButton) {
       {
         IconButton(onClick = { navController.popBackStack() }) {
-          Icon(Icons.Default.ArrowBack, contentDescription = "Back")
+          Icon(
+            Icons.Default.ArrowBack,
+            contentDescription = "Back",
+            tint = Color.Black,
+            modifier = Modifier.size(28.dp)
+          )
         }
       }
     } else null,
+    actions = {
+      IconButton(onClick = { navController.navigate("settingsScreen") }) {
+        Icon(
+          Icons.Default.Settings,
+          contentDescription = "Settings",
+          tint = Color.Black,
+          modifier = Modifier.size(28.dp)
+        )
+      }
+    },
     backgroundColor = Color.White,
     contentColor = Color.Black,
     elevation = 0.dp,
     modifier = Modifier.shadow(elevation = 0.dp)
   )
 }
+
+
 
 @Preview
 @Composable
