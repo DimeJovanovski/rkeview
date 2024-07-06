@@ -17,6 +17,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import mk.rkeview.model.EnergyResource
+import mk.rkeview.theme.ThemeViewModel
 import mk.rkeview.ui.components.ResourcePriceField
 import mk.rkeview.ui.components.ScreenTemplate
 
@@ -25,6 +26,7 @@ import mk.rkeview.ui.components.ScreenTemplate
  * Displays the prices for the sub-resources of a general resource.
  *
  * @param navController - for app navigation
+ * @param themeViewModel - the ViewModel managing app theme
  * @param viewModel - viewModel from where to read the data
  * @param resourceTypeFirebaseName - name of the document in Firebase of the general resource
  * @param resourceTypeDisplayName - name of the document in Firebase of the general resource
@@ -32,6 +34,7 @@ import mk.rkeview.ui.components.ScreenTemplate
 @Composable
 fun ResourcePricesScreen(
     navController: NavController,
+    themeViewModel: ThemeViewModel,
     viewModel: EnergyResourceViewModel = hiltViewModel(),
     resourceTypeFirebaseName: String,
     resourceTypeDisplayName: String
@@ -39,7 +42,7 @@ fun ResourcePricesScreen(
     val resources = viewModel.getCategoryResource(resourceTypeFirebaseName)
         .collectAsStateWithLifecycle(emptyList())
 
-    ScreenTemplate(navController = navController, content = {
+    ScreenTemplate(navController = navController, themeViewModel = themeViewModel, content = {
         ResourcePricesScreenContent(
             subTypes = resources.value, resourceTypeDisplayName = resourceTypeDisplayName
         )
@@ -76,6 +79,7 @@ fun ResourcePricesScreenContent(subTypes: List<EnergyResource>, resourceTypeDisp
         }
     }
 }
+
 
 
 // Preview won't work because it can't initialize viewModel

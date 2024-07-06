@@ -13,6 +13,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import mk.rkeview.resourceComponents.ResourceType
 import mk.rkeview.theme.RKEviewTheme
+import mk.rkeview.theme.ThemeViewModel
 import mk.rkeview.ui.components.ResourceTypeButton
 import mk.rkeview.ui.components.ScreenTemplate
 
@@ -22,14 +23,16 @@ import mk.rkeview.ui.components.ScreenTemplate
  * The user clicks on the type of resource for which he/she wants to view the prices.
  *
  * @param navController - for app navigation
+ * @param themeViewModel - the ViewModel managing app theme
  */
 @Composable
-fun HomeScreen(navController: NavController) {
-    ScreenTemplate(
-      navController = navController,
-      content = { HomeScreenContent(navController) },
-      disableBackButton = true
-    )
+fun HomeScreen(navController: NavController, themeViewModel: ThemeViewModel) {
+  ScreenTemplate(
+    navController = navController,
+    themeViewModel = themeViewModel,
+    content = { HomeScreenContent(navController) },
+    disableBackButton = true
+  )
 }
 
 @Composable
@@ -59,12 +62,12 @@ fun HomeScreenContent(navController: NavController) {
   }
 }
 
-
 @Preview
 @Composable
 fun HomeScreenPreview() {
   val navController = rememberNavController()
-  RKEviewTheme{
-    HomeScreen(navController = navController)
+  val themeViewModel = ThemeViewModel() // Initialize ViewModel for preview
+  RKEviewTheme {
+    HomeScreen(navController = navController, themeViewModel = themeViewModel)
   }
 }
