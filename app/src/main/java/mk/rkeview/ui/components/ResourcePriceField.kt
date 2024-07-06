@@ -6,10 +6,13 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
@@ -22,7 +25,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -48,56 +53,57 @@ fun ResourcePriceField(
 ) {
   Row(
     modifier = Modifier
-      .height(80.dp)
+      .height(100.dp)
       .clip(shape = RoundedCornerShape(8.dp))
       .background(MaterialTheme.colors.primary)
-
-      .border(
-        width = 1.dp,
-        color = MaterialTheme.colors.secondary,
-        shape = RoundedCornerShape(8.dp)
-      )
-      .drawBehind {
-        val borderSize = 1.dp.toPx()
-        drawLine(
-          color = Color.LightGray,
-          start = Offset(0f, size.height),
-          end = Offset(size.width, size.height),
-          strokeWidth = borderSize
-        )
-      }
   ) {
     Box(
       modifier = Modifier
-        .padding(16.dp)
+        .padding(14.dp)
         .fillMaxHeight()
-        .fillMaxWidth(0.6f)
+        .fillMaxWidth(0.55f)
     ) {
       Text(
         text = displayName,
-        fontSize = 8.sp,
+        fontSize = 12.sp,
         fontWeight = FontWeight.Bold,
-        color = Color.Black
+        color = MaterialTheme.colors.onPrimary,
+        style = TextStyle(
+          lineHeight = 14.sp
+        ),
+        modifier = Modifier.fillMaxSize()
       )
     }
 
     Column(
       modifier = Modifier
-        .padding(16.dp)
+        .padding(top = 16.dp, bottom = 16.dp, end = 16.dp)
         .fillMaxHeight()
-        .fillMaxWidth()
+        .fillMaxWidth(),
+      horizontalAlignment = Alignment.End
     ) {
       Text(
         text = "$price $measureUnit",
-        fontSize = 8.sp,
+        fontSize = 12.sp,
         fontWeight = FontWeight.Bold,
-        color = Color.Black
+        color = MaterialTheme.colors.onPrimary,
+        style = TextStyle(lineHeight = 14.sp),
+        modifier = Modifier.fillMaxWidth(),
+        textAlign = TextAlign.End
       )
+
+      Spacer(
+        modifier = Modifier.size(16.dp)
+      )
+
       Text(
         text = "$validFrom",
-        fontSize = 8.sp,
+        fontSize = 12.sp,
         fontWeight = FontWeight.Bold,
-        color = Color.Gray
+        color = MaterialTheme.colors.onPrimary,
+        style = TextStyle(lineHeight = 14.sp),
+        modifier = Modifier.fillMaxWidth(),
+        textAlign = TextAlign.End
       )
     }
   }
@@ -109,9 +115,9 @@ fun ResourcePriceField(
 fun ResourcePriceFieldPreview() {
   RKEviewTheme {
     ResourcePriceField(
-      displayName = "Benzin-95",
-      measureUnit = "den./l",
-      price = 100.0,
+      displayName = "СНАБДУВАЊЕ СО ТОПЛИНА ЕСМ СНАБДУВАЊЕ СО ТОПЛИНА ДООЕЛ ОСТАНАТИ Ангажирана топлинска моќност на ниво на мерно место",
+      measureUnit = "ден/kW/година",
+      price = 4559.598,
       validFrom = "20.01.2022"
     )
   }

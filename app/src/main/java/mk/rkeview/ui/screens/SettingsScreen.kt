@@ -11,18 +11,22 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import mk.rkeview.theme.RKEviewTheme
+import mk.rkeview.theme.ThemeViewModel
 import mk.rkeview.ui.components.ScreenTemplate
 
 /**
  * Settings screen for user configurations.
  *
  * @param navController - for app navigation
+ * @param themeViewModel - the ViewModel managing app theme
  */
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun SettingsScreen(navController: NavController) {
+fun SettingsScreen(navController: NavController, themeViewModel: ThemeViewModel) {
   ScreenTemplate(
     navController = navController,
+    themeViewModel = themeViewModel,
     content = { SettingsScreenContent() }
   )
 }
@@ -45,5 +49,9 @@ fun SettingsScreenContent() {
 @Composable
 fun SettingsScreenPreview() {
   val navController = rememberNavController()
-  SettingsScreen(navController = navController)
+  val themeViewModel = ThemeViewModel() // Initialize ViewModel for preview
+  RKEviewTheme {
+    SettingsScreen(navController = navController, themeViewModel = themeViewModel)
+  }
 }
+
