@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -16,6 +17,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import mk.rkeview.theme.RKEviewTheme
 import mk.rkeview.theme.ThemeViewModel
@@ -35,6 +37,10 @@ fun AppBar(
   themeViewModel: ThemeViewModel
 ) {
   val isDarkTheme by themeViewModel.isDarkTheme.collectAsState() // Correctly collect as state
+
+  // Get the current route
+  val navBackStackEntry by navController.currentBackStackEntryAsState()
+  val currentRoute = navBackStackEntry?.destination?.route
 
   TopAppBar(
     title = { },
@@ -56,6 +62,18 @@ fun AppBar(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier.padding(end = 8.dp)
       ) {
+        // Show the Resource Analytics button only on the resourcePricesScreen
+        if (currentRoute?.startsWith("resourcePricesScreen") == true) {
+          IconButton(onClick = { navController.navigate("resourceAnalyticsScreen") }) {
+            Icon(
+              painterResource(R.drawable.baseline_analytics_24),
+              contentDescription = "Analytics",
+              tint = MaterialTheme.colors.onPrimary,
+              modifier = Modifier.size(28.dp)
+            )
+          }
+        }
+
         // Light/Dark mode toggle button
         IconButton(
           onClick = { themeViewModel.toggleTheme() },
@@ -69,7 +87,6 @@ fun AppBar(
             tint = MaterialTheme.colors.onPrimary,
             modifier = Modifier.size(28.dp)
           )
-
         }
 
         // Settings button
