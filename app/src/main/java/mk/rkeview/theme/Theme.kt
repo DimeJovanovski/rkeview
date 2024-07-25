@@ -2,6 +2,7 @@ package mk.rkeview.theme
 
 //noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Typography
 //noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.darkColors
 //noinspection UsingMaterialAndMaterial3Libraries
@@ -12,6 +13,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontFamily
 import androidx.lifecycle.viewmodel.compose.viewModel
 
 /**
@@ -37,6 +39,11 @@ private val LocalThemeViewModel = staticCompositionLocalOf<ThemeViewModel> {
   error("No LocalThemeViewModel provided")
 }
 
+// Using the built-in Roboto font
+val RobotoTypography = Typography(
+  defaultFontFamily = FontFamily.Default
+)
+
 @Composable
 fun RKEviewTheme(
   content: @Composable () -> Unit
@@ -54,7 +61,8 @@ fun RKEviewTheme(
 
     MaterialTheme(
       colors = colors,
-      content = content
+      content = content,
+      typography = RobotoTypography
     )
   }
 }

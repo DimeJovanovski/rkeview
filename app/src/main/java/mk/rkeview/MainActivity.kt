@@ -5,8 +5,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.isSystemInDarkTheme
-//noinspection UsingMaterialAndMaterial3Libraries
-import androidx.compose.material.Scaffold
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -19,7 +17,7 @@ import mk.rkeview.ui.screens.SettingsScreen
 import androidx.navigation.navArgument
 import dagger.hilt.android.AndroidEntryPoint
 import mk.rkeview.theme.ThemeViewModel
-import mk.rkeview.ui.components.AppBar
+import mk.rkeview.ui.screens.ResourceAnalyticsScreen
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -67,6 +65,14 @@ class MainActivity : ComponentActivity() {
                     // for the Settings screen
                     composable("settingsScreen") {
                         SettingsScreen(
+                            navController = navController,
+                            themeViewModel = themeViewModel
+                        )
+                    }
+
+                    // for the Resource Analytics screen
+                    composable("resourceAnalyticsScreen") {
+                        ResourceAnalyticsScreen(
                             navController = navController,
                             themeViewModel = themeViewModel
                         )
