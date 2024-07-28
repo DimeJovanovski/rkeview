@@ -60,7 +60,7 @@ fun ResourcePricesScreenContent(subTypes: List<EnergyResource>, resourceTypeDisp
         item {
             Text(
                 text = resourceTypeDisplayName,
-                fontSize = 32.sp,
+                fontSize = 30.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(vertical = 16.dp)
             )
