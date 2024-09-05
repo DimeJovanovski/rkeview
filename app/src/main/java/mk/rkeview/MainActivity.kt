@@ -19,6 +19,7 @@ import androidx.navigation.navArgument
 import dagger.hilt.android.AndroidEntryPoint
 import mk.rkeview.theme.ThemeViewModel
 import mk.rkeview.ui.screens.ResourceAnalyticsScreen
+import mk.rkeview.ui.screens.AboutAppScreen
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -79,6 +80,14 @@ class MainActivity : ComponentActivity() {
                     // Resource Analytics Screen
                     composable("resourceAnalyticsScreen") {
                         ResourceAnalyticsScreen(
+                            navController = navController,
+                            themeViewModel = themeViewModel
+                        )
+                    }
+
+                    // About app info Screen
+                    composable("aboutAppScreen") {
+                        AboutAppScreen(
                             navController = navController,
                             themeViewModel = themeViewModel
                         )

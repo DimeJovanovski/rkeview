@@ -1,52 +1,52 @@
 package mk.rkeview.ui.components
 
+import android.content.Context
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-//noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.KeyboardArrowUp
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import mk.rkeview.theme.RKEviewTheme
-import mk.rkeview.theme.ThemeViewModel
 import mk.rkeview.R
+import mk.rkeview.theme.ThemeViewModel
 
-/**
- * Custom toolbar for the app.
- *
- * @param navController - for app navigation
- * @param disableBackButton - for (not)showing the back icon in toolbar
- * @param themeViewModel - the ViewModel managing app theme
- */
 @Composable
 fun AppBar(
   navController: NavController,
   disableBackButton: Boolean = false,
   themeViewModel: ThemeViewModel
 ) {
-  val isDarkTheme by themeViewModel.isDarkTheme.collectAsState() // Correctly collect as state
-
-  // Get the current route
+  val isDarkTheme by themeViewModel.isDarkTheme.collectAsState()
   val navBackStackEntry by navController.currentBackStackEntryAsState()
   val currentRoute = navBackStackEntry?.destination?.route
+
+  var showAlertDialog by remember { mutableStateOf(false) }
+
+  // Get the context
+  val context = LocalContext.current
 
   TopAppBar(
     title = { },
     navigationIcon = if (!disableBackButton) {
       {
-        // Back button (OPTIONAL)
         IconButton(onClick = { navController.popBackStack() }) {
           Icon(
             Icons.Default.ArrowBack,
@@ -62,12 +62,12 @@ fun AppBar(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier.padding(end = 8.dp)
       ) {
-        // Show the Resource Analytics button only on the resourcePricesScreen
-        if (currentRoute?.startsWith("resourcePricesScreen") == true) {
-          IconButton(onClick = { navController.navigate("resourceAnalyticsScreen") }) {
+        // Show the AboutApp button only on screens other than AboutAppScreen
+        if (currentRoute?.startsWith("aboutAppScreen") == false) {
+          IconButton(onClick = { navController.navigate("aboutAppScreen") }) {
             Icon(
-              painterResource(R.drawable.baseline_analytics_24),
-              contentDescription = "Analytics",
+              painterResource(R.drawable.baseline_aboutinfo_24),
+              contentDescription = "About App",
               tint = MaterialTheme.colors.onPrimary,
               modifier = Modifier.size(28.dp)
             )
@@ -89,11 +89,11 @@ fun AppBar(
           )
         }
 
-        // Settings button
-        IconButton(onClick = { navController.navigate("settingsScreen") }) {
+        // Power off button
+        IconButton(onClick = { showAlertDialog = true }) {
           Icon(
-            Icons.Default.Settings,
-            contentDescription = "Settings",
+            painterResource(R.drawable.baseline_exit_to_app_24),
+            contentDescription = "Power Off",
             tint = MaterialTheme.colors.onPrimary,
             modifier = Modifier.size(28.dp)
           )
@@ -101,21 +101,63 @@ fun AppBar(
       }
     },
     backgroundColor = MaterialTheme.colors.background,
-    elevation = 0.dp,
-    modifier = Modifier.shadow(elevation = 0.dp)
+    modifier = Modifier.shadow(elevation = 0.dp),
+    elevation = 0.dp
   )
+
+  if (showAlertDialog) {
+    AlertDialog(
+      onDismissRequest = { showAlertDialog = false },
+      title = {
+        Text(
+          text = "Потврдете излез",
+          style = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.Bold)
+        )
+      },
+      text = {
+        Text(
+          text = "Дали сте сигурни дека сакате да излезете од апликацијата?",
+          style = TextStyle(fontSize = 16.sp)
+        )
+      },
+      confirmButton = {
+        Button(
+          onClick = {
+            // Handle YES click
+            showAlertDialog = false
+            // Exit the application
+            (context as? ComponentActivity)?.finishAffinity()
+          },
+          colors = ButtonDefaults.buttonColors(
+            backgroundColor = MaterialTheme.colors.primary,
+            contentColor = MaterialTheme.colors.onPrimary,
+            disabledBackgroundColor = Color.Gray
+          )
+        ) {
+          Text(text = "Да")
+        }
+      },
+      dismissButton = {
+        Button(
+          onClick = { showAlertDialog = false },
+          colors = ButtonDefaults.buttonColors(
+            backgroundColor = Color(0xFFF67036),
+            contentColor = Color.White
+          )
+        ) {
+          Text(text = "Не")
+        }
+      }
+    )
+  }
 }
 
-
-@Preview
+@Preview(showBackground = true)
 @Composable
-fun AppBarPreview() {
-  val navController = rememberNavController()
-  val themeViewModel = remember { ThemeViewModel() } // Initialize ViewModel for preview
-
-  RKEviewTheme {
-    Surface {
-      AppBar(navController = navController, themeViewModel = themeViewModel)
-    }
-  }
+fun PreviewAppBar() {
+  // Provide dummy data for preview
+  AppBar(
+    navController = rememberNavController(),
+    themeViewModel = remember { ThemeViewModel() }
+  )
 }
