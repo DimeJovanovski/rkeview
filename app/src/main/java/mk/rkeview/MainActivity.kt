@@ -12,12 +12,14 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import mk.rkeview.theme.RKEviewTheme
 import mk.rkeview.ui.screens.HomeScreen
+import mk.rkeview.ui.screens.SplashScreen
 import mk.rkeview.ui.screens.ResourcePricesScreen
 import mk.rkeview.ui.screens.SettingsScreen
 import androidx.navigation.navArgument
 import dagger.hilt.android.AndroidEntryPoint
 import mk.rkeview.theme.ThemeViewModel
 import mk.rkeview.ui.screens.ResourceAnalyticsScreen
+import mk.rkeview.ui.screens.AboutAppScreen
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -36,13 +38,18 @@ class MainActivity : ComponentActivity() {
             RKEviewTheme {
                 val navController = rememberNavController()
 
-                NavHost(navController = navController, startDestination = "homeScreen") {
-                    // for the Home Screen
+                NavHost(navController = navController, startDestination = "splashScreen") {
+                    // Splash Screen composable
+                    composable("splashScreen") {
+                        SplashScreen(navController = navController)
+                    }
+
+                    // Home Screen composable
                     composable("homeScreen") {
                         HomeScreen(navController = navController, themeViewModel = themeViewModel)
                     }
 
-                    // for the Resource Prices Screen
+                    // Resource Prices Screen
                     composable(
                         "resourcePricesScreen/{resourceTypeFirebaseName}/{resourceTypeDisplayName}",
                         arguments = listOf(
@@ -62,7 +69,7 @@ class MainActivity : ComponentActivity() {
                         )
                     }
 
-                    // for the Settings screen
+                    // Settings Screen
                     composable("settingsScreen") {
                         SettingsScreen(
                             navController = navController,
@@ -70,9 +77,17 @@ class MainActivity : ComponentActivity() {
                         )
                     }
 
-                    // for the Resource Analytics screen
+                    // Resource Analytics Screen
                     composable("resourceAnalyticsScreen") {
                         ResourceAnalyticsScreen(
+                            navController = navController,
+                            themeViewModel = themeViewModel
+                        )
+                    }
+
+                    // About app info Screen
+                    composable("aboutAppScreen") {
+                        AboutAppScreen(
                             navController = navController,
                             themeViewModel = themeViewModel
                         )
