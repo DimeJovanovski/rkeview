@@ -1,0 +1,10 @@
+# Ignore the local properties
+local.properties
+
+# Other hidden files
+/.idea
+/.gradle
+/.gradle
+/.idea
+/app/build
+/.gradle
